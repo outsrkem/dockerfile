@@ -15,7 +15,6 @@ RUN useradd -r -s /sbin/nologin nginx && \
 	--with-http_ssl_module && make && make install && \
 	cd /root && rm -rf /root/nginx-1.17.5
 
-RUN 
 
 ENV PATH=/usr/local/nginx/sbin:$PATH \
 	NGINX_HOME=/usr/local/nginx \
