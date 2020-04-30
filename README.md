@@ -5,7 +5,8 @@ git add -A
 ```
 
 ```
-git commit -m "%THISDATETIME%"
+DA=`date`
+git commit -m $DA
 ```
 
 ```
