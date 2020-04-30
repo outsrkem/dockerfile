@@ -69,7 +69,7 @@ if [ "$1" = 'mysqld' ]; then
 		mysql_tzinfo_to_sql /usr/share/zoneinfo | sed 's/Local time zone must be set--see zic manual page/FCTY/' | "${mysql[@]}" mysql
 
 		# 下面这一段执行SQL语句。
-		# "${mysql[@]}" 该语句能够登陆数据库
+		# "${mysql[@]}" 该语句能够登陆数据库，此处按需优化。
  		"${mysql[@]}" <<EOSQL
 			-- What's done in this file shouldn't be replicated
 			--  or products like mysql-fabric won't work
