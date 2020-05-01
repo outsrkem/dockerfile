@@ -37,7 +37,7 @@ if [ "$1" = 'mysqld' ]; then
 	if [ ! -z "$MYSQL_PORT" ];then
 		sed  -i "s/port = .*/port = ${MYSQL_PORT}/g" /etc/my.cnf
 		echo
-		echo "------>  MySQL 新端口为 $MYSQL_PORT"
+		echo "------>  MySQL 容器内新端口为 $MYSQL_PORT "
 		echo
 	fi
 
