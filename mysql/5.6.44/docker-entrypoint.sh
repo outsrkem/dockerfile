@@ -26,8 +26,8 @@ if [ "$1" = 'mysqld' ]; then
 	# mysqld --verbose --help 2>/dev/null | awk '$1 == "datadir" { print $2; exit }'
 	# /var/lib/mysql/
 	# 此处需要优化
-	#DATADIR="$("$@" --verbose --help 2>/dev/null | awk '$1 == "datadir" { print $2; exit }')"
-	DATADIR='/usr/local/mysql/data'
+	DATADIR="$("$@" --verbose --help 2>/dev/null | awk '$1 == "datadir" { print $2; exit }')"
+	# DATADIR='/usr/local/mysql/data'
 	echo $@
 	echo $DATADIR
 	echo $PATH
@@ -50,7 +50,7 @@ if [ "$1" = 'mysqld' ]; then
 		cd /usr/local/mysql
 		./scripts/mysql_install_db --user=mysql --datadir="$DATADIR" 
 
-		echo 'Finished mysql_install_db'
+		echo -e "\n mysql_install_db 执行成功。\n"
 
 		mysqld --user=mysql --datadir="$DATADIR" &
 		# Shell最后运行的后台Process的PID,即上面命令的pid
@@ -70,7 +70,7 @@ if [ "$1" = 'mysqld' ]; then
 			if echo 'SELECT 1' | "${mysql[@]}" &> /dev/null; then
 				break
 			fi
-			echo 'MySQL 进程正在进行中...'
+			echo -e " \n MySQL 进程正在启动... \n"
 			sleep 1
 		done
 		if [ "$i" = 0 ]; then
@@ -133,7 +133,9 @@ EOSQL
 		done
 
 		if ! kill -s TERM "$pid" || ! wait "$pid"; then
+			echo
 			echo >&2 'MySQL 进程初始化失败.'
+			echo
 			exit 1
 		fi
 
