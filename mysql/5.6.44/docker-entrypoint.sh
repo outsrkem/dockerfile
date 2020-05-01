@@ -4,6 +4,11 @@ set -e
 # if command starts with an option, prepend mysqld
 # 用于判断该脚本后面的参数是否以“-”开始，它考虑的是启动mysqld是带参数的情况，如果有的话，就将mysqld和参数作为变量存到$@中。
 # ${1:0:1} 表示获取第一个变量$1 , 并从下标为 0 的位置连续取 1 个值，即取第一个参数的前面的第一个字符，判断是否为 "-"
+# [root@localhost ~]# cat a.sh 
+# echo ${1:0:1}
+# [root@localhost ~]# sh a.sh -name port
+# -
+# 
 # 如果是 "-" ,则表示有参数传递到脚本，测试$@ 取所有参数，效果如下面这个样子：
 # $@ = mysqld -name -file
 if [ "${1:0:1}" = '-' ]; then
