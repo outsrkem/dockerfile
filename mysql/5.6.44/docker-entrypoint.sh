@@ -149,5 +149,5 @@ EOSQL
 	chown -R mysql:mysql "$DATADIR"
 fi
 
-# 如果启动时不加自定义命令，则在上面已经启动mysql
+# 如果启动时不加自定义命令，则在上面已经启动mysql.
 exec "$@"
