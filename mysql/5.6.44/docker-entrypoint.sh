@@ -31,7 +31,13 @@ if [ "$1" = 'mysqld' ]; then
 	echo "------>  \$@=$@"
 	echo "------>  DATADIR=$DATADIR"
 	echo "------>  PATH=$PATH"
-	
+	echo "------>  --env MYSQL_PORT=3345   端口修改"
+
+	# 修改端口，默认3306
+	if [ ! -z "$MYSQL_PORT" ];then
+		sed  -i "s/port = .*/port = ${MYSQL_PORT}/g" /etc/my.cnf
+	fi
+
 	# 如果存在/var/lib/mysql/mysql 目录，则跳过中间的步骤，直接执行chown -R mysql:mysql "$DATADIR"，
 	# 它这里判断的一个依据是，如果/var/lib/mysql/mysql存在文件，则代表mysql server已经安装，这时就无需安装
 	if [ ! -d "$DATADIR/mysql" ]; then
