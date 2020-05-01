@@ -5,7 +5,7 @@ RUN ln -fs ../usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
 	mkdir /docker-entrypoint-initdb.d && \
 	curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.163.com/.help/CentOS7-Base-163.repo && \
 	yum -y install autoconf libaio libaio-devel numactl.x86_64 && yum clean all && \
-	rm -rf /tmp/* && rm -rf /root/* && rm -rf /anaconda-post.log
+	rm -rf /tmp/* && rm -rf /root/* 
 
 
 # 注意要保证MySQL解压之后的目录是mysql
