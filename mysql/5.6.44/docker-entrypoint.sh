@@ -1,4 +1,5 @@
 #!/bin/bash
+# 若指令传回值不等于0，则立即退出shell。
 set -e
 
 # if command starts with an option, prepend mysqld
