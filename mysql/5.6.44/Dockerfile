@@ -7,7 +7,7 @@ RUN ln -fs ../usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
 	yum -y install autoconf libaio libaio-devel numactl.x86_64 && yum clean all
 
 
-#  注意要保证MySQL解压之后的目录是mysql
+# 注意要保证MySQL解压之后的目录是mysql
 ADD ./mysql-5.6.44-linux-glibc2.12-x86_64.tar.gz /usr/local/
 
 ENV PATH=/usr/local/mysql/bin:$PATH \
