@@ -37,7 +37,7 @@ if [ "$1" = 'mysqld' ]; then
 		# -z 判断空为真 -a 都成立为真
 		if [ -z "$MYSQL_ROOT_PASSWORD" -a -z "$MYSQL_ALLOW_EMPTY_PASSWORD" ]; then
 			echo >&2 'error: 数据库未初始化，MYSQL_ROOT_PASSWORD未设置'
-			echo >&2 '  您是否忘记添加-e MYSQL_ROOT_PASSWORD=... ?'
+			echo >&2 '  	 您是否忘记添加-e MYSQL_ROOT_PASSWORD=... ?'
 			exit 1
 		fi
 
