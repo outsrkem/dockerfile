@@ -34,4 +34,11 @@ cat > /etc/docker/daemon.json << EOF
   "registry-mirrors": ["https://kz7brmw7.mirror.aliyuncs.com"]
 }
 EOF
+
+# 启动docker
+
+systemctl daemon-reload
+systemctl restart docker
+systemctl status docker
+systemctl enable docker
 ```
