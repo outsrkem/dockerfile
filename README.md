@@ -14,3 +14,9 @@ git commit -m "$DA"
 ```
 git push origin master
 ```
+
+##### 便捷操作
+```
+DA=`date`
+git add -A &&  git commit -m "$DA 更新文件" && git push origin master
+```
