@@ -14,6 +14,8 @@ ENV PATH=/usr/local/mysql/bin:$PATH \
 	MYSQL_MAJOR=5.6 \
 	MYSQL_VERSION=5.6.44
 
+WORKDIR /usr/local/mysql
+
 COPY ./my.cnf /etc/my.cnf
 
 # 注意确保文件docker-entrypoint.sh 有执行权限。
