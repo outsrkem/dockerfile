@@ -36,6 +36,9 @@ if [ "$1" = 'mysqld' ]; then
 	# 修改端口，默认3306
 	if [ ! -z "$MYSQL_PORT" ];then
 		sed  -i "s/port = .*/port = ${MYSQL_PORT}/g" /etc/my.cnf
+		echo
+		echo "------>  MySQL 新端口为 $MYSQL_PORT"
+		echo
 	fi
 
 	# 如果存在/var/lib/mysql/mysql 目录，则跳过中间的步骤，直接执行chown -R mysql:mysql "$DATADIR"，
