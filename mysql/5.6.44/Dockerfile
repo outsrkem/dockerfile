@@ -15,7 +15,7 @@ ENV PATH=/usr/local/mysql/bin:$PATH \
 	MYSQL_VERSION=5.6.44
 
 COPY ./my.cnf /etc/my.cnf
-COPY docker-entrypoint.sh /entrypoint.sh
+COPY docker-entrypoint.sh /bin/entrypoint.sh
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["entrypoint.sh"]
 CMD ["mysqld"]
