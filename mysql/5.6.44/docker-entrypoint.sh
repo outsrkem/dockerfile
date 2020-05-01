@@ -28,9 +28,9 @@ if [ "$1" = 'mysqld' ]; then
 	# 此处需要优化
 	DATADIR="$("$@" --verbose --help 2>/dev/null | awk '$1 == "datadir" { print $2; exit }')"
 	# DATADIR='/usr/local/mysql/data'
-	echo $@
-	echo $DATADIR
-	echo $PATH
+	echo "------>  \$@=$@"
+	echo "------>  DATADIR=$DATADIR"
+	echo "------>  PATH=$PATH"
 	# 如果存在/var/lib/mysql/mysql 目录，则跳过中间的步骤，直接执行chown -R mysql:mysql "$DATADIR"，
 	# 它这里判断的一个依据是，如果/var/lib/mysql/mysql存在文件，则代表mysql server已经安装，这时就无需安装
 	if [ ! -d "$DATADIR/mysql" ]; then
