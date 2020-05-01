@@ -11,7 +11,8 @@ fi
 # $1 为mysqld，CMD中的参数
 if [ "$1" = 'mysqld' ]; then
 	# Get config
-	# 获取mysql server的数据目录,倘若我们没有输入任何以“-”开始的参数列表，则$@为mysqld，上述命令执行的结果如下：
+	# 获取mysql server的数据目录,倘若我们没有输入任何以“-”开始的参数列表，则$@为mysqld，
+    # 默认读取 /etc/my.cnf 中的datadir=/var/lib/mysql, 上述命令执行的结果如下：
 	# mysqld --verbose --help 2>/dev/null | awk '$1 == "datadir" { print $2; exit }'
 	# /var/lib/mysql/
 	# 此处需要优化
