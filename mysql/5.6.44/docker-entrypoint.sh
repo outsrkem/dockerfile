@@ -83,6 +83,7 @@ if [ "$1" = 'mysqld' ]; then
 
 		# 下面这一段执行SQL语句。
 		# "${mysql[@]}" 该语句能够登陆数据库，此处按需优化。
+		# EOSQL 前面加个- 可以使得输入内容不必顶格输入,但是我一直报错，没办法
  		"${mysql[@]}" <<EOSQL
 			-- What's done in this file shouldn't be replicated
 			--  or products like mysql-fabric won't work
