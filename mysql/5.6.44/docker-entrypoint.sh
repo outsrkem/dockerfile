@@ -44,8 +44,10 @@ if [ "$1" = 'mysqld' ]; then
 		mkdir -p "$DATADIR"
 		chown -R mysql:mysql "$DATADIR"
 
+		echo
 		echo 'Running mysql_install_db'
-        
+        echo
+
         # 切换脚本工作目录，初始化，启动都需要在mysql目录中。
 		cd /usr/local/mysql
 		./scripts/mysql_install_db --user=mysql --datadir="$DATADIR" 
