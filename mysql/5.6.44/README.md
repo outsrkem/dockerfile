@@ -15,3 +15,9 @@ docker run -d --name db-mysql -p 3306:3306 --env MYSQL_ROOT_PASSWORD=123456 mysq
 ```
 docker kill db-mysql
 ```
+
+### 使用我封装好的
+
+```
+docker pull registry.cn-shanghai.aliyuncs.com/outsrkem/mysql:5.6.44
+```
