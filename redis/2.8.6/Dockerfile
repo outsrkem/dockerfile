@@ -1,6 +1,6 @@
 FROM hub.c.163.com/library/centos:7.4.1708
 
-ADD ./redis2.8.6.tar.gz /usr/local/
+ADD ./package/redis2.8.6.tar.gz /usr/local/
 
 RUN ln -fs ../usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
 	rm -rf /tmp/* && rm -rf /root/* 
