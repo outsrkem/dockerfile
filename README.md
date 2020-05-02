@@ -21,6 +21,17 @@ DA=`date`
 git add -A &&  git commit -m "$DA 更新文件" && git push origin master
 ```
 
+#### 拉去指定目录
+```
+# 初始化空的 Git 版本库
+git init cron 
+cd cron/
+git remote add -f code https://gitee.com/Outsrkem/dockerfile.git
+git config core.sparsecheckout true
+echo redis/ >> .git/info/sparse-checkout
+git pull https://gitee.com/Outsrkem/dockerfile.git
+```
+
 #### docker 安装
 
 ```
