@@ -118,7 +118,7 @@ EOSQL
 			mysql+=( "$MYSQL_DATABASE" )
 		fi
 
-		# MYSQL_USER和MYSQL_PASSWORD 都有值时条件成立，执行创建用户的SQL语句。
+		# MYSQL_USER 和 MYSQL_PASSWORD 都有值时条件成立，执行创建用户的SQL语句。
 		if [ "$MYSQL_USER" -a "$MYSQL_PASSWORD" ]; then
 			echo "CREATE USER '"$MYSQL_USER"'@'%' IDENTIFIED BY '"$MYSQL_PASSWORD"' ;" | "${mysql[@]}"
 
