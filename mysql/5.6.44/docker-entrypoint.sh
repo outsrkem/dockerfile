@@ -28,17 +28,10 @@ if [ "$1" = 'mysqld' ]; then
 	# 此处需要优化
 	DATADIR="$("$@" --verbose --help 2>/dev/null | awk '$1 == "datadir" { print $2; exit }')"
 	# DATADIR='/usr/local/mysql/data'
-	echo "------>  \$@=$@"
-	echo "------>  DATADIR=$DATADIR"
-	echo "------>  PATH=$PATH"
-	echo "------>  --env MYSQL_PORT=3345   端口修改"
 
 	# 修改端口，默认3306
 	if [ ! -z "$MYSQL_PORT" ];then
 		sed  -i "s/port = .*/port = ${MYSQL_PORT}/g" /etc/my.cnf
-		echo
-		echo "------>  MySQL 容器内新端口为 $MYSQL_PORT "
-		echo
 	fi
 
 	# 如果存在/var/lib/mysql/mysql 目录，则跳过中间的步骤，直接执行chown -R mysql:mysql "$DATADIR"，
@@ -53,10 +46,6 @@ if [ "$1" = 'mysqld' ]; then
 
 		mkdir -p "$DATADIR"
 		chown -R mysql:mysql "$DATADIR"
-
-		echo
-		echo '执行 MySQL 初始化命令====> mysql_install_db'
-        echo
 
         # 切换脚本工作目录，初始化，启动都需要在mysql目录中。
 		cd /usr/local/mysql
