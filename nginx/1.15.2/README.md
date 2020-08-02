@@ -1,7 +1,7 @@
 ### 镜像构建命令
 
 ```
-docker build -t nginx:1.15.2 . -t Dockerfile
+docker build -t nginx:1.15.2 . -f Dockerfile
 ```
 
 ### 拉取我的镜像
