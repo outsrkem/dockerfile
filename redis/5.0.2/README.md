@@ -7,6 +7,7 @@ docker build -t redis:1.15.2 .
 
 ```
 docker pull registry.cn-shanghai.aliyuncs.com/outsrkem/redis:5.0.2
+docker pull registry.cn-shanghai.aliyuncs.com/outsrkem/redis:5.0.2-tools
 ```
 
 ### 启动容器
