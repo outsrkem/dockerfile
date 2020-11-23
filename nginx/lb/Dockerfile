@@ -4,7 +4,8 @@ RUN ln -fs ../usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 ADD ./nginx.tar.gz /usr/local/
 
-RUN useradd -r -s /sbin/nologin nginx &&\
+RUN groupadd -g 2000 nginx &&\
+	useradd -u 2000 -g  2000 -r -s /sbin/nologin nginx &&\
 	chown nginx.nginx -R /usr/local/nginx &&\
 	cd /root &&\
 	rm -rf /root/* &&\
