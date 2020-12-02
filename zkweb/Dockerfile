@@ -1,36 +1,40 @@
-FROM hub.c.163.com/library/centos:7.4.1708 as compile
-
-RUN ln -fs ../usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
-    curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.163.com/.help/CentOS7-Base-163.repo && \
-    yum -y install git
-
-ADD ./apache-maven-3.3.9-bin.tar.gz /root
-ADD ./jdk-8u261-linux-x64.tar.gz /root
-
-ENV JAVA_HOME /root/jdk1.8.0_261
-ENV PATH $JAVA_HOME/bin:$PATH
-
-ENV MAVEN_HOME /root/apache-maven-3.3.9
-ENV PATH $MAVEN_HOME/bin:$PATH
-
-WORKDIR /root
-RUN git clone https://gitee.com/Outsrkem/zkweb.git
-
-WORKDIR /root/zkweb
-RUN mvn clean compile
-RUN mvn clean package
+#############################################################################
+# zkweb
+#
+# 容器构建镜像
+#  1. 使用命令将dockerfile和maven打包好的jar包放在target目录下：
+#           $ mvn clean package -f pom-jar.xml
+#
+#  2. 在target目录下运行命令构建镜像：
+#           $ docker build -t zkweb:v1.2.1 .
+#
+# 容器启动
+#  1. 命令： docker run -p 8099:8099 --name zkweb -v /etc/localtime:/etc/localtime:ro zkweb:v1.2.1
+#
+#
+#############################################################################
 
 
-FROM hub.c.163.com/library/centos:7.4.1708 as build
-COPY --from=0 /root/zkweb/target/zkWeb-v1.2.1.war /opt
+FROM registry.cn-shanghai.aliyuncs.com/outsrkem/jre:1.8.0_261
 
-RUN ln -fs ../usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
-    echo "export PS1='(zkweb)[\u@\h \W]\\$ '" >> /etc/bashrc
+# 将本地文件夹挂载到当前容器
 
-ADD ./jdk-8u261-linux-x64.tar.gz /usr/local/
-ENV JAVA_HOME=/usr/local/jdk1.8.0_261 \
-    PATH=/usr/local/jdk1.8.0_261/bin:$PATH
+# 创建/tmp目录并持久化到Docker数据文件夹，因为Spring Boot使用的内嵌Tomcat容器默认使用/tmp作为工作目录。
+RUN mkdir /opt/server
 
-WORKDIR /opt
+VOLUME ["/tmp"]
 
-CMD ["java", "-jar", "zkWeb-v1.2.1.war"]
+COPY zkWeb-v1.2.1.jar   /opt/server/app.jar
+COPY docker-entrypoint.sh /bin/entrypoint.sh
+
+
+EXPOSE 8099 8099
+RUN chown 2000:2000 -R /opt/server \
+    && chmod 600 /opt/server/app.jar \
+    && chmod +x /bin/entrypoint.sh
+
+USER server
+
+WORKDIR "/opt/server"
+ENTRYPOINT ["entrypoint.sh"]
+CMD ["-jar","app.jar"]
