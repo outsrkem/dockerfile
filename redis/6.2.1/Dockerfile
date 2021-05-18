@@ -1,4 +1,4 @@
-FROM  registry.cn-shanghai.aliyuncs.com/outsrkem/alpine:Make-4.3 as compile
+FROM registry.cn-shanghai.aliyuncs.com/outsrkem/alpine:Make-4.3 as compile
 
 ADD http://download.redis.io/releases/redis-6.2.1.tar.gz /root
 RUN cd /root && tar xfv redis-6.2.1.tar.gz
