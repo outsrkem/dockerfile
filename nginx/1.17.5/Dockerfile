@@ -1,5 +1,4 @@
 FROM hub.c.163.com/library/centos:7.4.1708
-MAINTAINER <author@126.com>
 LABEL version="nginx-1.17.5"
 RUN ln -fs ../usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
 	curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.163.com/.help/CentOS7-Base-163.repo && \
