@@ -26,7 +26,10 @@ USER root
 COPY docker-entrypoint.sh /bin/entrypoint.sh
 COPY default.conf /etc/nginx/conf.d/default.conf
 
+EXPOSE 80/tcp 443/tcp
+
 ENV NGINX_VERSION=1.24.0
 
 WORKDIR /root
 ENTRYPOINT ["entrypoint.sh"]
+CMD ["nginx", "-g", "daemon off;"]
