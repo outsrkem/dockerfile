@@ -3,7 +3,7 @@ workspace=$(cd `dirname $0`; pwd)
 cd $workspace
 
 function _log_info() {
-  echo -e "`date "+[%F %T %z]"`\033[32m[I]\033[0m $@"
+  echo -e "`date "+[%F %T %z]"`[I] $@"
   echo -e "`date "+[%F %T %z]"`[I] $@" >> task.log
 }
 
@@ -22,13 +22,35 @@ function check_network(){
 
 # main
 _log_info "+++++++++++++++++++++++++++++++++++++++"
+cat <<'EOF'
 
-check_network
-if [ $? -eq 0 ];then
+  The main file or directory:
+    /etc/localtime
+    /etc/pki/rpm-gpg
+    /etc/yum.repos.d
+    /opt/mirrors/centos
+  Example:
+    docker run --name=reposync \
+    -v /etc/localtime:/etc/localtime:ro \
+    -v /opt/mirrors/centos:/opt/mirrors/centos \
+    -v /opt/mirrors/repos.d:/etc/yum.repos.d \
+    reposync:1.0.0 |& tee  logs/reposync.`date +%Y.%m.%d`.log
+
+EOF
+
+
+_log_info "+++++++++++++++++++++++++++++++++++++++"
+
+check_network; if [ $? -eq 0 ];then
         _log_info "If the network is abnormal, exit task."
         exit 100
 fi
 
+_log_info "import rpm-gpg"
+find /etc/pki/rpm-gpg -type f
+rpm --import /etc/pki/rpm-gpg/*
+rpm -q gpg-pubkey
+echo 
 _log_info "create yum makecache"
 
 yum clean all
@@ -43,12 +65,6 @@ reposync -p /opt/mirrors/centos/7/x86_64
 
 sleep 1
 _log_info "start update createrepo"
-#createrepo --update /opt/mirror/centos/7/x86_64/base
-#createrepo --update /opt/mirror/centos/7/x86_64/extras
-#createrepo --update /opt/mirror/centos/7/x86_64/updates
-#createrepo --update /opt/mirror/centos/7/x86_64/docker-ce-stable
-#createrepo --update /opt/mirror/centos/7/x86_64/epel
-#createrepo --update /opt/mirror/centos/7/x86_64/nginx
 
 for i in `ls /opt/mirrors/centos/7/x86_64`;do
     _log_info "createrepo $i"

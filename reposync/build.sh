@@ -6,4 +6,6 @@ fi
 
 docker build -t reposync:$version .
 docker build -t reposync .
+docker build -t swr.cn-north-1.myhuaweicloud.com/onge/reposync:$version .
+docker build -t swr.cn-north-1.myhuaweicloud.com/onge/reposync .
 
