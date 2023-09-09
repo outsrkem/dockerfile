@@ -7,8 +7,8 @@ cd $workspace
 docker rm reposync
 
 docker run --name=reposync \
--v /opt/mirrors/centos:/opt/mirrors/centos \
-swr.cn-north-1.myhuaweicloud.com/onge/reposync |& tee  logs/reposync.`date +%Y.%m.%d`.log
+-v /opt/mirrors/repos:/etc/yum.repos.d \
+-v /opt/mirrors/centos:/opt/mirrors/centos reposync |& tee  logs/reposync.`date +%Y.%m.%d`.log >/dev/null 2>&1
 
 sleep 3
 tree centos > logs/tree.`date +%Y-%m-%d`.log
