@@ -61,7 +61,11 @@ for i in `seq 10`;do echo -n "$i ";sleep 1;done; echo
 
 _log_info "The system starts source synchronization"
 
-reposync -p /opt/mirrors/centos/7/x86_64
+repo_id=(WANdisco-git nginx docker-ce-stable base elrepo elrepo-kernel epel extras updates)
+for repo in ${repo_id[@]};do
+    _log_info "reposync $repo"
+    reposync -r $repo -p /opt/mirrors/centos/7/x86_64
+done
 
 sleep 1
 _log_info "start update createrepo"
